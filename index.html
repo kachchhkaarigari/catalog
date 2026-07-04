@@ -84,6 +84,10 @@
 
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-thumb { background-color: #1B3A63; border-radius: 4px; }
+
+  /* Bulletproof hide — used for the install buttons so a Tailwind display
+     utility (inline-flex, flex, etc.) can never silently override it. */
+  .js-hidden { display: none !important; }
 </style>
 </head>
 <body class="bg-ivory text-ink antialiased">
@@ -108,8 +112,8 @@
       </div>
 
       <div class="flex items-center gap-2 sm:gap-3">
-        <button id="installBtn" hidden
-          class="hidden sm:inline-flex items-center gap-2 bg-indigo_dye hover:bg-indigo_dye-dark text-ivory font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">
+        <button id="installBtn" 
+          class="js-hidden hidden sm:inline-flex items-center gap-2 bg-indigo_dye hover:bg-indigo_dye-dark text-ivory font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">
           <i data-lucide="download" class="w-4 h-4"></i>
           <span>Install App</span>
         </button>
@@ -710,13 +714,16 @@ window.addEventListener('beforeinstallprompt', (event) => {
 });
 
 async function triggerInstall() {
-  if (!deferredInstallPrompt) return;
+  if (!deferredInstallPrompt) {
+    alert("This app can't auto-install right now. Open your browser menu (⋮) and choose \"Install app\" or \"Add to Home screen\" instead.");
+    return;
+  }
   deferredInstallPrompt.prompt();
   const { outcome } = await deferredInstallPrompt.userChoice;
   console.log('PWA install outcome:', outcome);
   deferredInstallPrompt = null;
-  installBtn.hidden = true;
-  installBtnMobile.hidden = true;
+  installBtn.classList.add('js-hidden');
+  installBtnMobile.classList.add('js-hidden');
 }
 
 installBtn.addEventListener('click', triggerInstall);
