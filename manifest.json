@@ -1,0 +1,41 @@
+{
+  "name": "Kachchh Kaarigari",
+  "short_name": "Kachchh",
+  "description": "Handcrafted Kachchhi fabric catalog — Frocks, Sarees, Shawls and more, made by artisans of Kutch, Gujarat.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F7F3EA",
+  "theme_color": "#1B3A63",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["shopping", "lifestyle"],
+  "icons": [
+    {
+      "src": "https://kachchhkaarigari.github.io/catalog/kk_logo_small.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://kachchhkaarigari.github.io/catalog/kk_logo_small.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://kachchhkaarigari.github.io/catalog/kk_logo_large.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://kachchhkaarigari.github.io/catalog/kk_logo_large.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

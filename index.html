@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Kachchh Kaarigari — जहाँ रंगों में बसती है कच्छ की पहेचान </title>
+<meta name="description" content="Kachchh Kaarigari — authentic handcrafted Kachchhi fabric catalog: Frocks, Sarees, Shawls and more." />
+
+<!-- PWA -->
+<link rel="manifest" href="./manifest.json" />
+<meta name="theme-color" content="#1B3A63" />
+<link rel="apple-touch-icon" href="https://kachchhkaarigari.github.io/catalog/kk_logo_small.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Kachchh" />
+
+<!-- Fonts: Fraunces (display, carries the hand-carved block-print feel) + Manrope (clean utility body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          indigo_dye: { DEFAULT: '#1B3A63', dark: '#122843', light: '#2C5183' },
+          ajrakh: { DEFAULT: '#A13D2C', dark: '#832F21' },
+          mustard: { DEFAULT: '#D9A441', dark: '#B8842C' },
+          ivory: '#F7F3EA',
+          ink: '#2B2420'
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Manrope', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+
+<!-- Lucide Icons via CDN -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<style>
+  body { font-family: 'Manrope', sans-serif; background-color: #F7F3EA; color: #2B2420; }
+  h1, h2, h3, .font-display { font-family: 'Fraunces', serif; }
+
+  /* Signature element: a bandhani / mirror-work dot divider referencing Kachchhi tie-dye and embroidery */
+  .dot-divider {
+    height: 10px;
+    width: 100%;
+    background-image: radial-gradient(circle, #A13D2C 2px, transparent 2.6px);
+    background-size: 16px 16px;
+    background-position: center;
+    opacity: 0.85;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Card media container keeps consistent aspect ratio for grid rhythm */
+  .media-box { aspect-ratio: 3 / 4; overflow: hidden; background-color: #EAE3D3; }
+  .media-box img, .media-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .modal-media-box { background-color: #122843; }
+  .modal-media-box img, .modal-media-box video { width: 100%; height: 100%; object-fit: contain; }
+
+  /* Focus visibility for accessibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid #D9A441;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background-color: #1B3A63; border-radius: 4px; }
+</style>
+</head>
+<body class="bg-ivory text-ink antialiased">
+
+<!-- ============================= HEADER ============================= -->
+<header class="sticky top-0 z-40 bg-ivory/95 backdrop-blur border-b border-indigo_dye/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <div class="flex items-center gap-3">
+        <!-- Logo: served from the repo root. Adjust the path below if you
+             place the files in a subfolder (e.g. "./assets/kk_logo.png"). -->
+        <img
+          src="./kk_logo.png"
+          alt="Kachchh Kaarigari logo"
+          class="w-10 h-10 sm:w-12 sm:h-12 object-contain rounded-full flex-shrink-0"
+          onerror="this.onerror=null; this.src='./kk_logo.jpeg';"
+        />
+        <div class="flex flex-col leading-none">
+          <span class="font-display font-semibold text-2xl sm:text-3xl text-indigo_dye tracking-tight">Kachchh Kaarigari</span>
+          <span class="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-ajrakh font-semibold mt-1">Handcrafted &middot; Kachchh, Gujarat</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="installBtn" hidden
+          class="hidden sm:inline-flex items-center gap-2 bg-indigo_dye hover:bg-indigo_dye-dark text-ivory font-semibold text-sm px-4 py-2.5 rounded-full transition-colors">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Install App</span>
+        </button>
+        <button id="installBtnMobile" hidden
+          class="sm:hidden inline-flex items-center justify-center bg-indigo_dye text-ivory w-11 h-11 rounded-full transition-colors" aria-label="Install App">
+          <i data-lucide="download" class="w-5 h-5"></i>
+        </button>
+        <a href="https://wa.me/919559920411" target="_blank" rel="noopener"
+          class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-ajrakh hover:bg-ajrakh-dark text-ivory transition-colors" aria-label="WhatsApp Enquiry">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="dot-divider"></div>
+</header>
+
+<!-- ============================= HERO / INTRO ============================= -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
+  <p class="uppercase tracking-[0.25em] text-xs sm:text-sm text-ajrakh font-bold mb-3">The Catalog</p>
+  <h1 class="font-display text-3xl sm:text-5xl text-indigo_dye font-semibold max-w-2xl leading-tight">
+    Every piece, tied, dyed and stitched by hand in Kachchh.
+  </h1>
+  <p class="mt-4 text-ink/70 max-w-xl text-sm sm:text-base">
+    Browse live stock straight from our workshop ledger. Tap any piece to see it up close and order directly on WhatsApp.
+  </p>
+</section>
+
+<!-- ============================= FILTER / SEARCH CONTROLS ============================= -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+  <div class="flex flex-col sm:flex-row gap-3">
+    <div class="relative flex-1">
+      <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink/40"></i>
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Search by name or type, e.g. 'Frock' or 'Indigo'"
+        class="w-full pl-11 pr-4 py-3 rounded-xl border border-indigo_dye/15 bg-white focus:border-indigo_dye outline-none text-sm placeholder:text-ink/40"
+        autocomplete="off"
+      />
+    </div>
+    <div class="relative sm:w-64">
+      <i data-lucide="chevron-down" class="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-ink/40 pointer-events-none"></i>
+      <select id="categorySelect"
+        class="w-full appearance-none pl-4 pr-10 py-3 rounded-xl border border-indigo_dye/15 bg-white focus:border-indigo_dye outline-none text-sm">
+        <option value="all">All Categories</option>
+        <!-- Options populated dynamically from CSV Product Type column -->
+      </select>
+    </div>
+  </div>
+  <p id="resultsCount" class="mt-3 text-xs text-ink/50"></p>
+</section>
+
+<!-- ============================= STATUS / ERROR BANNER ============================= -->
+<div id="statusBanner" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" hidden>
+  <div class="flex items-start gap-3 bg-ajrakh/10 border border-ajrakh/30 text-ajrakh-dark rounded-xl p-4 mb-6 text-sm">
+    <i data-lucide="alert-triangle" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+    <div>
+      <p class="font-semibold" id="statusTitle">Something went wrong</p>
+      <p id="statusMessage" class="text-ink/70 mt-0.5"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= LOADING STATE ============================= -->
+<div id="loadingState" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <!-- skeleton loaders -->
+    <div class="animate-pulse rounded-2xl overflow-hidden bg-white shadow-sm">
+      <div class="aspect-[3/4] bg-indigo_dye/10"></div>
+      <div class="p-4 space-y-2"><div class="h-3 bg-indigo_dye/10 rounded w-3/4"></div><div class="h-3 bg-indigo_dye/10 rounded w-1/2"></div></div>
+    </div>
+    <div class="animate-pulse rounded-2xl overflow-hidden bg-white shadow-sm hidden sm:block">
+      <div class="aspect-[3/4] bg-indigo_dye/10"></div>
+      <div class="p-4 space-y-2"><div class="h-3 bg-indigo_dye/10 rounded w-3/4"></div><div class="h-3 bg-indigo_dye/10 rounded w-1/2"></div></div>
+    </div>
+    <div class="animate-pulse rounded-2xl overflow-hidden bg-white shadow-sm hidden lg:block">
+      <div class="aspect-[3/4] bg-indigo_dye/10"></div>
+      <div class="p-4 space-y-2"><div class="h-3 bg-indigo_dye/10 rounded w-3/4"></div><div class="h-3 bg-indigo_dye/10 rounded w-1/2"></div></div>
+    </div>
+    <div class="animate-pulse rounded-2xl overflow-hidden bg-white shadow-sm hidden lg:block">
+      <div class="aspect-[3/4] bg-indigo_dye/10"></div>
+      <div class="p-4 space-y-2"><div class="h-3 bg-indigo_dye/10 rounded w-3/4"></div><div class="h-3 bg-indigo_dye/10 rounded w-1/2"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= PRODUCT GRID ============================= -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+  <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" hidden></div>
+  <div id="emptyState" class="text-center py-24" hidden>
+    <i data-lucide="package-search" class="w-10 h-10 mx-auto text-indigo_dye/40 mb-3"></i>
+    <p class="font-display text-xl text-indigo_dye">No pieces match your search</p>
+    <p class="text-sm text-ink/50 mt-1">Try a different keyword or category.</p>
+  </div>
+</main>
+
+<!-- ============================= PRODUCT MODAL ============================= -->
+<div id="productModal" class="fixed inset-0 z-50 hidden">
+  <div id="modalBackdrop" class="absolute inset-0 bg-ink/70"></div>
+  <div class="relative h-full w-full flex items-center justify-center p-0 sm:p-6">
+    <div class="bg-ivory w-full h-full sm:h-auto sm:max-h-[90vh] sm:max-w-4xl sm:rounded-2xl overflow-y-auto flex flex-col lg:flex-row shadow-2xl">
+      <button id="modalCloseBtn" aria-label="Close"
+        class="absolute top-4 right-4 z-10 bg-ink/60 hover:bg-ink/80 text-ivory w-10 h-10 rounded-full flex items-center justify-center">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="modal-media-box w-full lg:w-1/2 aspect-[4/5] lg:aspect-auto flex-shrink-0" id="modalMediaBox"></div>
+
+      <div class="flex-1 p-6 sm:p-8 flex flex-col">
+        <span id="modalCategoryBadge" class="inline-block w-fit text-[11px] uppercase tracking-widest font-bold px-3 py-1 rounded-full bg-mustard/20 text-mustard-dark mb-3"></span>
+        <h2 id="modalProductName" class="font-display text-2xl sm:text-3xl text-indigo_dye font-semibold leading-snug"></h2>
+
+        <div id="modalStockRow" class="flex items-center gap-2 mt-4">
+          <span id="modalStockDot" class="w-2.5 h-2.5 rounded-full"></span>
+          <span id="modalStockText" class="text-sm font-semibold"></span>
+        </div>
+
+        <p class="text-sm text-ink/60 mt-4 leading-relaxed">
+          Handcrafted in Kachchh, Gujarat. Message us on WhatsApp for pricing, sizing and dispatch details for this piece.
+        </p>
+
+        <div class="mt-auto pt-8">
+          <a id="modalActionBtn" target="_blank" rel="noopener"
+            class="w-full inline-flex items-center justify-center gap-2 font-semibold text-sm sm:text-base px-6 py-4 rounded-xl transition-colors">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+            <span id="modalActionText"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="bg-indigo_dye text-ivory mt-8">
+  <div class="dot-divider"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
+
+      <div>
+        <h3 class="font-display text-xl font-semibold mb-3">Kachchh Kaarigari</h3>
+        <p class="text-ivory/70 text-sm leading-relaxed">
+          Authentic Kachchhi textiles — Ajrakh, Bandhani and hand-embroidered pieces, made by artisans of Kutch.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="uppercase text-xs tracking-widest font-bold text-mustard mb-4">Find Us</h4>
+        <ul class="space-y-3 text-sm text-ivory/80">
+          <li class="flex items-start gap-2">
+            <i data-lucide="map-pin" class="w-4 h-4 mt-0.5 flex-shrink-0 text-mustard"></i>
+            <span>102, Daffodils Tower, Gangotri Exotica, Laxmipura Gotri Road, Vadodara, 390021</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="phone" class="w-4 h-4 flex-shrink-0 text-mustard"></i>
+            <a href="https://wa.me/919559920411" target="_blank" rel="noopener" class="hover:text-mustard transition-colors">+91 95599 20411 (WhatsApp)</a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="uppercase text-xs tracking-widest font-bold text-mustard mb-4">Follow the Craft</h4>
+        <ul class="space-y-3 text-sm text-ivory/80">
+          <li><a href="https://instagram.com/kachchh.kaarigari" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-mustard transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i> Instagram</a></li>
+          <li><a href="https://www.youtube.com/@KachchhKaarigari" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-mustard transition-colors"><i data-lucide="youtube" class="w-4 h-4"></i> YouTube</a></li>
+          <li><a href="https://x.com/kachchhkarigari" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-mustard transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i> Twitter / X</a></li>
+          <li><a href="https://in.pinterest.com/kachchhkaarigari/" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-mustard transition-colors"><i data-lucide="image" class="w-4 h-4"></i> Pinterest</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="border-t border-ivory/15 mt-10 pt-6 text-xs text-ivory/50 flex flex-col sm:flex-row justify-between gap-2">
+      <span>&copy; <span id="currentYear"></span> Kachchh Kaarigari. All rights reserved.</span>
+      <span>Woven with care in Kutch, Gujarat.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================================
+   CONFIG
+   ========================================================================= */
+const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRX8dd6sLHOngnpJoPKZ4M4VDvm1NYGS4o_mgHMsKnYAbBDATdW04NP3Ke13HrlEOAEe-vBHW1cKYSE/pub?gid=73887165&single=true&output=csv";
+const WHATSAPP_NUMBER = "919559920411";
+
+/* =========================================================================
+   STATE
+   ========================================================================= */
+let ALL_PRODUCTS = [];
+let ACTIVE_CATEGORY = "all";
+let ACTIVE_SEARCH = "";
+
+/* =========================================================================
+   DOM REFERENCES
+   ========================================================================= */
+const productGrid = document.getElementById('productGrid');
+const emptyState = document.getElementById('emptyState');
+const loadingState = document.getElementById('loadingState');
+const resultsCount = document.getElementById('resultsCount');
+const searchInput = document.getElementById('searchInput');
+const categorySelect = document.getElementById('categorySelect');
+const statusBanner = document.getElementById('statusBanner');
+const statusTitle = document.getElementById('statusTitle');
+const statusMessage = document.getElementById('statusMessage');
+
+const productModal = document.getElementById('productModal');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+const modalMediaBox = document.getElementById('modalMediaBox');
+const modalCategoryBadge = document.getElementById('modalCategoryBadge');
+const modalProductName = document.getElementById('modalProductName');
+const modalStockDot = document.getElementById('modalStockDot');
+const modalStockText = document.getElementById('modalStockText');
+const modalActionBtn = document.getElementById('modalActionBtn');
+const modalActionText = document.getElementById('modalActionText');
+
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+/* =========================================================================
+   CSV PARSING (quote-aware, comma-safe)
+   ========================================================================= */
+function parseCSV(rawText) {
+  const rows = [];
+  let currentRow = [];
+  let currentField = '';
+  let insideQuotes = false;
+
+  // Normalize line endings so \r\n and \r don't break row detection
+  const text = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const nextChar = text[i + 1];
+
+    if (insideQuotes) {
+      if (char === '"' && nextChar === '"') {
+        currentField += '"';
+        i++; // skip escaped quote
+      } else if (char === '"') {
+        insideQuotes = false;
+      } else {
+        currentField += char;
+      }
+    } else {
+      if (char === '"') {
+        insideQuotes = true;
+      } else if (char === ',') {
+        currentRow.push(currentField);
+        currentField = '';
+      } else if (char === '\n') {
+        currentRow.push(currentField);
+        rows.push(currentRow);
+        currentRow = [];
+        currentField = '';
+      } else {
+        currentField += char;
+      }
+    }
+  }
+
+  // push final trailing field/row if file doesn't end with newline
+  if (currentField.length > 0 || currentRow.length > 0) {
+    currentRow.push(currentField);
+    rows.push(currentRow);
+  }
+
+  // drop fully empty rows (trailing blank lines in the published sheet)
+  return rows.filter(r => r.some(cell => cell.trim() !== ''));
+}
+
+function mapRowsToProducts(rows) {
+  // Skip header row
+  const dataRows = rows.slice(1);
+
+  return dataRows.map((row, index) => {
+    const name = (row[0] || '').trim();
+    const productType = (row[1] || '').trim();
+    const stockRaw = (row[2] || '').trim();
+    const link = (row[3] || '').trim();
+
+    const stockNumber = stockRaw === '' ? 0 : parseFloat(stockRaw);
+    const inStock = !isNaN(stockNumber) && stockNumber > 0;
+
+    return {
+      id: `product-${index}`,
+      name: name || 'Untitled Piece',
+      productType: productType || 'Uncategorized',
+      stock: isNaN(stockNumber) ? 0 : stockNumber,
+      inStock,
+      link
+    };
+  }).filter(p => p.name && p.name !== 'Untitled Piece');
+}
+
+/* =========================================================================
+   GOOGLE DRIVE MEDIA LINK PARSING
+   ========================================================================= */
+function extractDriveFileId(link) {
+  if (!link) return null;
+  const patterns = [
+    /\/d\/([a-zA-Z0-9_-]{15,})/,      // .../file/d/FILE_ID/view
+    /[?&]id=([a-zA-Z0-9_-]{15,})/,    // ...?id=FILE_ID
+    /\/open\?id=([a-zA-Z0-9_-]{15,})/ // .../open?id=FILE_ID
+  ];
+  for (const pattern of patterns) {
+    const match = link.match(pattern);
+    if (match && match[1]) return match[1];
+  }
+  return null;
+}
+
+function isVideoLink(link) {
+  return /\.(mp4|mov|webm|ogg|m4v|avi|mkv)(\?|$)/i.test(link || '');
+}
+
+function getMediaUrls(link) {
+  const fileId = extractDriveFileId(link);
+  if (!fileId) return null;
+
+  const video = isVideoLink(link);
+  return {
+    isVideo: video,
+    // primary render URL
+    primary: video
+      ? `https://drive.google.com/uc?export=download&id=${fileId}`
+      : `https://drive.google.com/uc?export=view&id=${fileId}`,
+    // fallback URL used if the primary fails to load (onerror handler)
+    fallback: video
+      ? `https://drive.google.com/file/d/${fileId}/preview`
+      : `https://lh3.googleusercontent.com/d/${fileId}`
+  };
+}
+
+/* Builds an <img> or <video> element for a given product link.
+   `variant` is 'card' (grid thumbnail) or 'modal' (full detail view). */
+function buildMediaElement(link, altText, variant) {
+  const media = getMediaUrls(link);
+  const wrapperClass = variant === 'card' ? 'media-box relative' : 'w-full h-full relative';
+
+  if (!media) {
+    return `
+      <div class="${wrapperClass} flex items-center justify-center bg-indigo_dye/10 text-indigo_dye/40">
+        <i data-lucide="image-off" class="w-8 h-8"></i>
+      </div>`;
+  }
+
+  if (media.isVideo) {
+    return `
+      <div class="${wrapperClass}">
+        <video
+          src="${media.primary}"
+          class="w-full h-full ${variant === 'card' ? 'object-cover' : 'object-contain'}"
+          loop muted playsinline autoplay
+          onerror="this.onerror=null; this.outerHTML = '<img src=\\'${media.fallback}\\' alt=\\'${altText}\\' class=\\'w-full h-full ${variant === 'card' ? 'object-cover' : 'object-contain'}\\'>';"
+        ></video>
+      </div>`;
+  }
+
+  return `
+    <div class="${wrapperClass}">
+      <img
+        src="${media.primary}"
+        alt="${altText}"
+        loading="${variant === 'card' ? 'lazy' : 'eager'}"
+        class="w-full h-full ${variant === 'card' ? 'object-cover' : 'object-contain'}"
+        onerror="this.onerror=null; this.src='${media.fallback}';"
+      />
+    </div>`;
+}
+
+/* =========================================================================
+   RENDERING: CATEGORY DROPDOWN
+   ========================================================================= */
+function populateCategoryDropdown(products) {
+  const uniqueTypes = [...new Set(products.map(p => p.productType).filter(Boolean))].sort();
+
+  // Clear everything except the "All Categories" option
+  categorySelect.innerHTML = '<option value="all">All Categories</option>';
+
+  uniqueTypes.forEach(type => {
+    const option = document.createElement('option');
+    option.value = type;
+    option.textContent = type;
+    categorySelect.appendChild(option);
+  });
+}
+
+/* =========================================================================
+   RENDERING: PRODUCT GRID
+   ========================================================================= */
+function escapeHtml(str) {
+  return (str || '').replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+function renderGrid() {
+  const filtered = ALL_PRODUCTS.filter(p => {
+    const matchesCategory = ACTIVE_CATEGORY === 'all' || p.productType === ACTIVE_CATEGORY;
+    const haystack = `${p.name} ${p.productType}`.toLowerCase();
+    const matchesSearch = haystack.includes(ACTIVE_SEARCH.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  resultsCount.textContent = `${filtered.length} piece${filtered.length === 1 ? '' : 's'} shown`;
+
+  if (filtered.length === 0) {
+    productGrid.hidden = true;
+    emptyState.hidden = false;
+    productGrid.innerHTML = '';
+    return;
+  }
+
+  emptyState.hidden = true;
+  productGrid.hidden = false;
+
+  productGrid.innerHTML = filtered.map(p => `
+    <button
+      type="button"
+      data-product-id="${p.id}"
+      class="product-card text-left group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-indigo_dye/5 ${p.inStock ? '' : 'opacity-60'}"
+    >
+      <div class="relative">
+        ${buildMediaElement(p.link, escapeHtml(p.name), 'card')}
+        ${!p.inStock ? `
+          <div class="absolute top-3 left-3 bg-ajrakh text-ivory text-[10px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full shadow">
+            Out of Stock
+          </div>` : ''
+        }
+      </div>
+      <div class="p-4">
+        <span class="inline-block text-[10px] uppercase tracking-widest font-bold text-mustard-dark bg-mustard/15 px-2 py-1 rounded-full mb-2">
+          ${escapeHtml(p.productType)}
+        </span>
+        <h3 class="font-display text-base font-semibold text-indigo_dye leading-snug line-clamp-2">
+          ${escapeHtml(p.name)}
+        </h3>
+      </div>
+    </button>
+  `).join('');
+
+  // (Re)hydrate Lucide icons for any icon markup rendered above (image-off fallback, etc.)
+  if (window.lucide) lucide.createIcons();
+
+  // Attach click listeners to open modal
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const product = ALL_PRODUCTS.find(p => p.id === card.dataset.productId);
+      if (product) openModal(product);
+    });
+  });
+}
+
+/* =========================================================================
+   MODAL LOGIC
+   ========================================================================= */
+function buildWhatsAppLink(product) {
+  const baseMessage = `Hi! I'm interested in this piece: ${product.name} (${product.productType}).`;
+  const message = product.inStock
+    ? baseMessage
+    : `${baseMessage} Please let me know when this item is in stock.`;
+
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function openModal(product) {
+  modalMediaBox.innerHTML = buildMediaElement(product.link, escapeHtml(product.name), 'modal');
+  if (window.lucide) lucide.createIcons();
+
+  modalCategoryBadge.textContent = product.productType;
+  modalProductName.textContent = product.name;
+
+  if (product.inStock) {
+    modalStockDot.className = 'w-2.5 h-2.5 rounded-full bg-green-600';
+    modalStockText.className = 'text-sm font-semibold text-green-700';
+    modalStockText.textContent = `In Stock (${product.stock} available)`;
+
+    modalActionBtn.className = 'w-full inline-flex items-center justify-center gap-2 font-semibold text-sm sm:text-base px-6 py-4 rounded-xl transition-colors bg-indigo_dye hover:bg-indigo_dye-dark text-ivory';
+    modalActionText.textContent = 'Order via WhatsApp';
+  } else {
+    modalStockDot.className = 'w-2.5 h-2.5 rounded-full bg-ajrakh';
+    modalStockText.className = 'text-sm font-semibold text-ajrakh';
+    modalStockText.textContent = 'Out of Stock';
+
+    modalActionBtn.className = 'w-full inline-flex items-center justify-center gap-2 font-semibold text-sm sm:text-base px-6 py-4 rounded-xl transition-colors bg-mustard-dark hover:bg-mustard text-ivory';
+    modalActionText.textContent = 'Notify me on Restock';
+  }
+
+  modalActionBtn.href = buildWhatsAppLink(product);
+
+  productModal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  productModal.classList.add('hidden');
+  document.body.style.overflow = '';
+  // stop any playing video by clearing the media box
+  modalMediaBox.innerHTML = '';
+}
+
+modalCloseBtn.addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', closeModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !productModal.classList.contains('hidden')) closeModal();
+});
+
+/* =========================================================================
+   FILTER EVENT LISTENERS
+   ========================================================================= */
+searchInput.addEventListener('input', (e) => {
+  ACTIVE_SEARCH = e.target.value;
+  renderGrid();
+});
+
+categorySelect.addEventListener('change', (e) => {
+  ACTIVE_CATEGORY = e.target.value;
+  renderGrid();
+});
+
+/* =========================================================================
+   ERROR / STATUS HANDLING
+   ========================================================================= */
+function showError(title, message) {
+  loadingState.hidden = true;
+  statusTitle.textContent = title;
+  statusMessage.textContent = message;
+  statusBanner.hidden = false;
+  if (window.lucide) lucide.createIcons();
+}
+
+/* =========================================================================
+   DATA LOADING
+   ========================================================================= */
+async function loadProducts() {
+  if (!GOOGLE_SHEET_CSV_URL || GOOGLE_SHEET_CSV_URL === 'YOUR_LINK_HERE') {
+    showError(
+      'Catalog not connected yet',
+      'Set GOOGLE_SHEET_CSV_URL at the top of the script in index.html to your published Google Sheet CSV link.'
+    );
+    return;
+  }
+
+  try {
+    const response = await fetch(GOOGLE_SHEET_CSV_URL, { cache: 'no-store' });
+
+    if (!response.ok) {
+      throw new Error(`Sheet responded with status ${response.status}`);
+    }
+
+    const csvText = await response.text();
+
+    if (!csvText || !csvText.trim()) {
+      throw new Error('The sheet returned no data.');
+    }
+
+    const rows = parseCSV(csvText);
+
+    if (rows.length < 2) {
+      throw new Error('The sheet only contains a header row (no products found).');
+    }
+
+    const products = mapRowsToProducts(rows);
+
+    if (products.length === 0) {
+      throw new Error('No valid product rows could be parsed from the sheet.');
+    }
+
+    ALL_PRODUCTS = products;
+    populateCategoryDropdown(products);
+
+    loadingState.hidden = true;
+    statusBanner.hidden = true;
+    renderGrid();
+
+  } catch (err) {
+    console.error('Failed to load catalog:', err);
+    showError(
+      'Could not load the catalog',
+      `We couldn't reach or read the product sheet right now (${err.message}). Please check your internet connection or try again shortly.`
+    );
+  }
+}
+
+/* =========================================================================
+   PWA: INSTALL PROMPT
+   ========================================================================= */
+let deferredInstallPrompt = null;
+const installBtn = document.getElementById('installBtn');
+const installBtnMobile = document.getElementById('installBtnMobile');
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installBtn.hidden = false;
+  installBtnMobile.hidden = false;
+});
+
+async function triggerInstall() {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const { outcome } = await deferredInstallPrompt.userChoice;
+  console.log('PWA install outcome:', outcome);
+  deferredInstallPrompt = null;
+  installBtn.hidden = true;
+  installBtnMobile.hidden = true;
+}
+
+installBtn.addEventListener('click', triggerInstall);
+installBtnMobile.addEventListener('click', triggerInstall);
+
+window.addEventListener('appinstalled', () => {
+  installBtn.hidden = true;
+  installBtnMobile.hidden = true;
+  deferredInstallPrompt = null;
+});
+
+/* =========================================================================
+   PWA: SERVICE WORKER REGISTRATION
+   ========================================================================= */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registered with scope:', reg.scope))
+      .catch(err => console.error('Service Worker registration failed:', err));
+  });
+}
+
+/* =========================================================================
+   INIT
+   ========================================================================= */
+if (window.lucide) lucide.createIcons();
+loadProducts();
+</script>
+
+</body>
+</html>
