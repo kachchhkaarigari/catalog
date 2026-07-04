@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Kachchh Kaarigari — जहाँ रंगों में बसती है कच्छ की पहेचान </title>
-<meta name="description" content="Kachchh Kaarigari — authentic handcrafted Kachchhi fabric catalog: Frocks, Sarees, Shawls and more." />
+<meta name="description" content="Kachchh Kaarigari - authentic handcrafted Kachchhi fabric catalog: Frocks, Sarees, Kurti, Dupatta, Skirts, Shawls and more." />
 
 <!-- PWA -->
 <link rel="manifest" href="./manifest.json" />
@@ -107,7 +107,7 @@
         />
         <div class="flex flex-col leading-none">
           <span class="font-display font-semibold text-2xl sm:text-3xl text-indigo_dye tracking-tight">Kachchh Kaarigari</span>
-          <span class="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-ajrakh font-semibold mt-1">Handcrafted &middot; Kachchh, Gujarat</span>
+          <span class="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-ajrakh font-semibold mt-1">Handcrafted in Kachchh, Gujarat</span>
         </div>
       </div>
 
@@ -135,10 +135,10 @@
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
   <p class="uppercase tracking-[0.25em] text-xs sm:text-sm text-ajrakh font-bold mb-3">The Catalog</p>
   <h1 class="font-display text-3xl sm:text-5xl text-indigo_dye font-semibold max-w-2xl leading-tight">
-    Every piece, tied, dyed and stitched by hand in Kachchh.
+    Every piece, crafted by the hands of artisans of Kachchh.
   </h1>
   <p class="mt-4 text-ink/70 max-w-xl text-sm sm:text-base">
-    Browse live stock straight from our workshop ledger. Tap any piece to see it up close and order directly on WhatsApp.
+    Browse live items straight from our workshop. Tap any item to see it up close and order directly on WhatsApp.
   </p>
 </section>
 
@@ -217,7 +217,8 @@
   <div class="relative h-full w-full flex items-center justify-center p-0 sm:p-6">
     <div class="bg-ivory w-full h-full sm:h-auto sm:max-h-[90vh] sm:max-w-4xl sm:rounded-2xl overflow-y-auto flex flex-col lg:flex-row shadow-2xl">
       <button id="modalCloseBtn" aria-label="Close"
-        class="absolute top-4 right-4 z-10 bg-ink/60 hover:bg-ink/80 text-ivory w-10 h-10 rounded-full flex items-center justify-center">
+        style="top: calc(env(safe-area-inset-top, 0px) + 1rem);"
+        class="absolute right-4 z-20 bg-ink/60 hover:bg-ink/80 text-ivory w-11 h-11 rounded-full flex items-center justify-center">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
@@ -236,12 +237,17 @@
           Handcrafted in Kachchh, Gujarat. Message us on WhatsApp for pricing, sizing and dispatch details for this piece.
         </p>
 
-        <div class="mt-auto pt-8">
+        <div class="mt-auto pt-8 space-y-3">
           <a id="modalActionBtn" target="_blank" rel="noopener"
             class="w-full inline-flex items-center justify-center gap-2 font-semibold text-sm sm:text-base px-6 py-4 rounded-xl transition-colors">
             <i data-lucide="message-circle" class="w-5 h-5"></i>
             <span id="modalActionText"></span>
           </a>
+          <button type="button" id="modalBackBtn"
+            class="w-full inline-flex items-center justify-center gap-2 font-semibold text-sm px-6 py-3.5 rounded-xl border border-indigo_dye/20 text-indigo_dye hover:bg-indigo_dye/5 transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back to Catalog</span>
+          </button>
         </div>
       </div>
     </div>
@@ -617,6 +623,7 @@ function closeModal() {
 }
 
 modalCloseBtn.addEventListener('click', closeModal);
+document.getElementById('modalBackBtn').addEventListener('click', closeModal);
 modalBackdrop.addEventListener('click', closeModal);
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !productModal.classList.contains('hidden')) closeModal();
